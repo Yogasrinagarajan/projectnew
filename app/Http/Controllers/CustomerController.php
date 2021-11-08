@@ -15,9 +15,10 @@ class CustomerController extends Controller
     public function index()
     {
         // 
-        $view= DB::select('select * from adds where (delete_status = ?) AND (active_status=?)',[0,1]);
+        // $view= DB::select('select * from adds where (delete_status = ?) AND (active_status=?)',[0,1]);
 
         // $view=Customer::all();
+        $view=Customer::where('active_status',1)->where('delete_status',0)->get();
         return view('view',compact('view'));
          // return view('view');
     }
@@ -122,7 +123,10 @@ class CustomerController extends Controller
         //
          $data=Customer::find($id);
          $data->delete();
-         DB::update('update adds set active_status=?,delete_status = ? where id = ?',[0,1,$id]);
+         // DB::update('update adds set active_status=?,delete_status = ? where id = ?',[0,1,$id]);
+         $data->active_status="0";
+         $data->delete_status="1";
+         $data->save();
          return redirect('customer');
     }
 }

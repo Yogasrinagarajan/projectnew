@@ -7,33 +7,46 @@
    
 <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add Page') }}
+            {{ __('Update Customer') }}
         </h2>
     </x-slot>
 <body>
 	<div class="container d-flex flex-column justify-content-center w-50 mt-5 ">
-		<center><h1 class="h2">ADD FORM</h1></center>
-		<form action="/add" method="POST"  name="fn" onsubmit="return validateForm()">
+
+        <div>
+            @if(session()->has('message'))
+             <div class="alert alert-success">
+                {{  session()->get('message') }}
+            </div>
+            @endif
+        </div>
+            
+		<center><h1 class="h2">Update</h1></center>
+		<form action="/editcustomer" method="POST"  name="fn" onsubmit="return validateForm()">
 			@csrf
+			<div class="mt-4 mx-5">
+               
+                <x-jet-input id="id" class="block mt-1 w-full" type="hidden" name="id" value="{{$data['id']}}" required  />
+            </div>
 
             <div class="mt-4 mx-5">
                 <x-jet-label for="fname" value="{{ __('First Name') }}" />
-                <x-jet-input id="fname" class="block mt-1 w-full" type="text" name="fname" :value="old('fname')" required autofocus autocomplete="fname" />
+                <x-jet-input id="fname" class="block mt-1 w-full" type="text" name="fname" value="{{$data['firstname']}}" required autofocus autocomplete="fname" />
             </div>
 
             <div class="mt-4 mx-5">
                 <x-jet-label for="lname" value="{{ __('Last Name') }}" />
-                <x-jet-input id="lname" class="block mt-1 w-full" type="text" name="lname" :value="old('name')" required  />
+                <x-jet-input id="lname" class="block mt-1 w-full" type="text" name="lname" value="{{$data['lastname']}}" required  />
             </div>	
 
             <div class="mt-4 mx-5">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{$data['email']}}" required />
             </div>
 
             <div class="mt-4 mx-5">
                 <x-jet-label for="phno" value="{{ __('Phone') }}" />
-                <x-jet-input id="phno" class="block mt-1 w-full" type="text" name="phno" :value="old('email')" required pattern="[0-9]{10}" />
+                <x-jet-input id="phno" class="block mt-1 w-full" type="text" name="phno" value="{{$data['phone']}}" required pattern="[0-9]{10}" />
             </div>
 
 				<!-- <label for= "fname" class="form-label fs-5">First Name</label><br>
@@ -45,7 +58,7 @@
 				<label for="phno" class="form-label fs-5">Phone Number</label><br>
 				<input type="text" name="phno" id="phno" class="form-control " pattern="[0-9]{10}"><br> -->
 			<div class="mt-4">
-				<center><input type="submit" name="submit" value="Submit" class="btn w-25 btn-primary " ></center>
+				<center><input type="submit" name="submit" value="Update" class="btn w-25 btn-primary " ></center>
 			<div class="mt-4">	
 		</form>
 	</div>	

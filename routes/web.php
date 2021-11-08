@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AddController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +22,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/add', function () {
-    return view('add');
-});
+Route::get('/customer',[CustomerController::class,'index']);
 
 // Route::post('/add', function () {
 //    $add =new Add();
@@ -37,8 +35,11 @@ Route::get('/add', function () {
 
 // });
 
-Route::post('/add', [AddController::class,'index']);
+Route::get('/addcustomer',[CustomerController::class,'create'])->name('add');
 
-Route::get('/view', function () {
-    return view('view');
-});
+Route::post('/addcustomer', [CustomerController::class,'store']);
+Route::get('/editcustomer/{id}',[CustomerController::class,'edit']);
+Route::post('/editcustomer',[CustomerController::class,'update'])->name('update');
+
+Route::get('/deletecustomer/{id}',[CustomerController::class,'destroy']);
+

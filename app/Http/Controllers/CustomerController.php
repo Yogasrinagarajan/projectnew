@@ -62,7 +62,8 @@ class CustomerController extends Controller
            $add->email=request('email');
            $add->phone=request('phno');
            $add->save();
-           return redirect('/addcustomer')->with('message','Inserted Successfully');
+           return redirect('customer/create')->with('message','Inserted Successfully');
+
 
     }
 
@@ -109,7 +110,7 @@ class CustomerController extends Controller
         $data->email=$request->email;
         $data->phone=$request->phno;
         $data->save();
-        return redirect('editcustomer/'.$data->id)->with('message','Updated Successfully');
+        return redirect('customer/'.$data->id.'/edit')->with('message','Updated Successfully');
     }
 
     /**
@@ -122,7 +123,7 @@ class CustomerController extends Controller
     {
         //
          $data=Customer::find($id);
-         $data->delete();
+         // $data->delete();
          // DB::update('update adds set active_status=?,delete_status = ? where id = ?',[0,1,$id]);
          $data->active_status="0";
          $data->delete_status="1";

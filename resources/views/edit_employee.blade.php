@@ -7,11 +7,12 @@
    
 <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add Page') }}
+            {{ __('Update Employee') }}
         </h2>
     </x-slot>
 <body>
 	<div class="container d-flex flex-column justify-content-center w-50 mt-5 ">
+
         <div>
             @if(session()->has('message'))
              <div class="alert alert-success">
@@ -19,40 +20,41 @@
             </div>
             @endif
         </div>
-		<center><h1 class="h2">ADD FORM</h1></center>
-		<form action="{{ route('customer.store') }}" method="POST"  name="fn" onsubmit="return validateForm()">
+            
+		<center><h1 class="h2">Update</h1></center>
+		<form action="{{ url('employee/'.$data->id)}}" method="POST"  name="fn" onsubmit="return validateForm()">
 			@csrf
+            @method('PUT')
+            <?php
+            	 $name=$data->name;
+                 $name1=explode(" ",$name);
+                 $fn=$name1[0];
+        		 $ln=$name1[1];
+    
+            ?>
+			<div class="mt-4 mx-5">
+               
+                <x-jet-input id="id" class="block mt-1 w-full" type="hidden" name="id" value="{{$data['id']}}" required  />
+            </div>
 
             <div class="mt-4 mx-5">
                 <x-jet-label for="fname" value="{{ __('First Name') }}" />
-                <x-jet-input id="fname" class="block mt-1 w-full" type="text" name="fname" :value="old('fname')"  autofocus autocomplete="fname" />
-                @error('fname')
-                    <div  class="alert alert-danger">{{  $errors->first('fname')  }}</div>
-                @enderror
+                <x-jet-input id="fname" class="block mt-1 w-full" type="text" name="fname" value="{{$fn}}" required autofocus autocomplete="fname" />
             </div>
 
             <div class="mt-4 mx-5">
                 <x-jet-label for="lname" value="{{ __('Last Name') }}" />
-                <x-jet-input id="lname" class="block mt-1 w-full" type="text" name="lname" :value="old('name')"  />
-                 @error('lname')
-                    <div  class="alert alert-danger">{{  $errors->first('lname')  }}</div>
-                @enderror
+                <x-jet-input id="lname" class="block mt-1 w-full" type="text" name="lname" value="{{$ln}}" required  />
             </div>	
 
             <div class="mt-4 mx-5">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" />
-                 @error('email')
-                    <div  class="alert alert-danger">{{  $errors->first('email')  }}</div>
-                @enderror
+                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{$data['email']}}" required />
             </div>
 
             <div class="mt-4 mx-5">
                 <x-jet-label for="phno" value="{{ __('Phone') }}" />
-                <x-jet-input id="phno" class="block mt-1 w-full" type="text" name="phno" :value="old('email')"  pattern="[0-9]{10}" />
-                 @error('phno')
-                    <div class="alert alert-danger">{{  $errors->first('phno')  }}</div>
-                @enderror
+                <x-jet-input id="phno" class="block mt-1 w-full" type="text" name="phno" value="{{$data['phonenumber']}}" required pattern="[0-9]{10}" />
             </div>
 
 				<!-- <label for= "fname" class="form-label fs-5">First Name</label><br>
@@ -64,7 +66,7 @@
 				<label for="phno" class="form-label fs-5">Phone Number</label><br>
 				<input type="text" name="phno" id="phno" class="form-control " pattern="[0-9]{10}"><br> -->
 			<div class="mt-4">
-				<center><input type="submit" name="submit" value="Submit" class="btn w-25 btn-primary " ></center>
+				<center><input type="submit" name="submit" value="Update" class="btn w-25 btn-primary " ></center>
 			<div class="mt-4">	
 		</form>
 	</div>	

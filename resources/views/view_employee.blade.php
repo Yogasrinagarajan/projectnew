@@ -9,11 +9,11 @@
 	<div class="d-flex position-relative">
 	   <div class="">
 	        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-	            {{ __('Customer Details') }}
+	            {{ __('Employee Details') }}
 	        </h2>
        </div>
        <div class=" position-absolute top-0 end-0">
-         	<a href="{{ route('customer.create') }}"><button class="btn btn-primary">Add Customer</button></a>
+         	<a href="{{ route('employee.create') }}"><button class="btn btn-primary">Add Employee</button></a>
         </div>
     </div>
     </x-slot>
@@ -22,34 +22,34 @@
   			<thead>
 	         <tr>
 	            <th scope="col">Id</th>
-	            <th scope="col">Firstname</th>
-	            <th scope="col">Lastname</th>
+	            <th scope="col">Name</th>
 	            <th scope="col">Email</th>
 	            <th scope="col">Phone</th>
-	             <th scope="col">Action</th>
+	             <th scope="col">Role</th>
+	            <th scope="col">Action</th>
 	         </tr>
-	        </thead> 
-         @foreach ($view as $view)
+	        </thead>
+	       @foreach ($views as $view)
          <tr>
             <td>{{ $view->id}}</td>
-            <td>{{ $view->firstname}}</td>
-            <td>{{ $view->lastname}}</td>
+            <td>{{ $view->name}}</td>
             <td>{{ $view->email}}</td>
-            <td>{{ $view->phone}}</td>
+            <td>{{ $view->phonenumber}}</td>
+            <td>{{ $view->role}}</td>
             <td>
-              	<a href="{{ url('customer/'.$view->id.'/edit')}}" class="btn btn-primary">Edit</a>
-              	<!-- <a href="{{('deletecustomer/'.$view->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{  $view->firstname }}')">Delete</a> -->
+              	<a href="{{ url('employee/'.$view->id.'/edit')}}" class="btn btn-primary">Edit</a>
             </td>
             <td>
-                <form action="{{ url('customer/'.$view->id) }}" method="POST">
+                <form action="{{ url('employee/'.$view->id) }}" method="POST">
                   @csrf
                   @method('DELETE')
-                  <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{  $view->firstname }}')">Delete</button>
+                  <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{  $view->name }}')">Delete</button>
                 </form>
             </td>
            
          </tr>
          @endforeach
-      </table>
+	        <tr></tr>
+         </table>
   </div>
 </x-app-layout>

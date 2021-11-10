@@ -22,8 +22,9 @@
         </div>
             
 		<center><h1 class="h2">Update</h1></center>
-		<form action="/editcustomer" method="POST"  name="fn" onsubmit="return validateForm()">
+		<form action="{{ url('customer/'.$data->id)}}" method="POST"  name="fn" onsubmit="return validateForm()">
 			@csrf
+            @method('PUT')
 			<div class="mt-4 mx-5">
                
                 <x-jet-input id="id" class="block mt-1 w-full" type="hidden" name="id" value="{{$data['id']}}" required  />

@@ -25,6 +25,13 @@
 		<form action="{{ url('customer/'.$data->id)}}" method="POST"  name="fn" onsubmit="return validateForm()">
 			@csrf
             @method('PUT')
+             <?php
+                 $name=$data->name;
+                 $name1=explode(" ",$name);
+                 $fn=$name1[0];
+                 $ln=$name1[1];
+    
+            ?>
 			<div class="mt-4 mx-5">
                
                 <x-jet-input id="id" class="block mt-1 w-full" type="hidden" name="id" value="{{$data['id']}}" required  />
@@ -32,12 +39,12 @@
 
             <div class="mt-4 mx-5">
                 <x-jet-label for="fname" value="{{ __('First Name') }}" />
-                <x-jet-input id="fname" class="block mt-1 w-full" type="text" name="fname" value="{{$data['firstname']}}" required autofocus autocomplete="fname" />
+                <x-jet-input id="fname" class="block mt-1 w-full" type="text" name="fname" value="{{$fn}}" required autofocus autocomplete="fname" />
             </div>
 
             <div class="mt-4 mx-5">
                 <x-jet-label for="lname" value="{{ __('Last Name') }}" />
-                <x-jet-input id="lname" class="block mt-1 w-full" type="text" name="lname" value="{{$data['lastname']}}" required  />
+                <x-jet-input id="lname" class="block mt-1 w-full" type="text" name="lname" value="{{$ln}}" required  />
             </div>	
 
             <div class="mt-4 mx-5">
@@ -47,7 +54,7 @@
 
             <div class="mt-4 mx-5">
                 <x-jet-label for="phno" value="{{ __('Phone') }}" />
-                <x-jet-input id="phno" class="block mt-1 w-full" type="text" name="phno" value="{{$data['phone']}}" required pattern="[0-9]{10}" />
+                <x-jet-input id="phno" class="block mt-1 w-full" type="text" name="phno" value="{{$data['phonenumber']}}" required pattern="[0-9]{10}" />
             </div>
 
 				<!-- <label for= "fname" class="form-label fs-5">First Name</label><br>

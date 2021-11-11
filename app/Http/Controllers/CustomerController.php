@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use DB;
 class CustomerController extends Controller
 {
@@ -18,7 +20,7 @@ class CustomerController extends Controller
         // $view= DB::select('select * from adds where (delete_status = ?) AND (active_status=?)',[0,1]);
 
         // $view=Customer::all();
-        $view=Customer::where('active_status',1)->where('delete_status',0)->get();
+        $view=User::where('active_status',1)->where('role','cus')->get();
         return view('view',compact('view'));
          // return view('view');
     }
@@ -56,11 +58,16 @@ class CustomerController extends Controller
 
           // insert into table  
 
-           $add =new Customer();
-           $add->firstname=request('fname');
-           $add->lastname=request('lname');
+           $add =new User();
+           $fn=request('fname');
+           $ln=request('lname');
+           $name=$fn." ".$ln;
+           $add->name=$name;
+           // $add->lastname=request('lname');
            $add->email=request('email');
-           $add->phone=request('phno');
+           $add->phonenumber=request('phno');
+           $add->role='cus';
+           $add->password=Hash::make('1234567890');
            $add->save();
            return redirect('customer/create')->with('message','Inserted Successfully');
 
@@ -87,7 +94,7 @@ class CustomerController extends Controller
     public function edit($id)
     {
         //
-         $data = Customer::find($id);
+         $data = User::find($id);
          return view('editcustomer',['data'=>$data]);
 
         // $editdata = DB::table('adds')->find($id);
@@ -104,11 +111,13 @@ class CustomerController extends Controller
     public function update(Request $request)
     {
         //
-        $data=Customer::find($request->id);
-        $data->firstname=$request->fname;
-        $data->lastname=$request->lname;
+        $data=User::find($request->id);
+        $fn=request('fname');
+        $ln=request('lname');
+        $name=$fn." ".$ln;
+        $data->name=$name;
         $data->email=$request->email;
-        $data->phone=$request->phno;
+        $data->phonenumber=$request->phno;
         $data->save();
         return redirect('customer/'.$data->id.'/edit')->with('message','Updated Successfully');
     }
@@ -122,7 +131,7 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         //
-         $data=Customer::find($id);
+         $data=User::find($id);
          // $data->delete();
          // DB::update('update adds set active_status=?,delete_status = ? where id = ?',[0,1,$id]);
          $data->active_status="0";

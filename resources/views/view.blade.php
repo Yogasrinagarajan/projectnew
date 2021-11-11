@@ -22,8 +22,7 @@
   			<thead>
 	         <tr>
 	            <th scope="col">Id</th>
-	            <th scope="col">Firstname</th>
-	            <th scope="col">Lastname</th>
+	            <th scope="col">Name</th>
 	            <th scope="col">Email</th>
 	            <th scope="col">Phone</th>
 	             <th scope="col">Action</th>
@@ -32,10 +31,10 @@
          @foreach ($view as $view)
          <tr>
             <td>{{ $view->id}}</td>
-            <td>{{ $view->firstname}}</td>
-            <td>{{ $view->lastname}}</td>
+            <td>{{ $view->name}}</td>
+            <!-- <td>{{ $view->lastname}}</td> -->
             <td>{{ $view->email}}</td>
-            <td>{{ $view->phone}}</td>
+            <td>{{ $view->phonenumber}}</td>
             <td>
               	<a href="{{ url('customer/'.$view->id.'/edit')}}" class="btn btn-primary">Edit</a>
               	<!-- <a href="{{('deletecustomer/'.$view->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{  $view->firstname }}')">Delete</a> -->

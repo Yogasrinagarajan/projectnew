@@ -106,7 +106,7 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         //
-        $data=User::find($id);
+         $data=User::find($id);
          $data->active_status="0";
          $data->delete_status="1";
          $data->save();

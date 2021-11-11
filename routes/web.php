@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('loginpage', function () {
+//     return view('loginpage');
+// });
+Route::middleware(['auth','isadmin'])->group(function (){
+	Route::get('/redirects',[HomeController::class,"index"]);
+});
+// Route::get('/redirects',[HomeController::class,"index"]);
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');

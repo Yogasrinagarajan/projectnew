@@ -5,6 +5,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
+// use App\Http\Controllers\CustomerloginController;
+// use App\Http\Controllers\EmployeeloginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,38 +23,36 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('loginpage', function () {
-//     return view('loginpage');
-// });
-Route::middleware(['auth','isadmin'])->group(function (){
-	Route::get('/redirects',[HomeController::class,"index"]);
+Route::group([ 'middleware'=>['isadmin','auth']], function(){
+
+    Route::get('/dashboard', [HomeController::class, 'admin']); 
+
 });
-// Route::get('/redirects',[HomeController::class,"index"]);
+
+Route::group(['middleware'=>['isemployee','auth']], function(){
+
+    Route::get('/Employeepage', [HomeController::class, 'emp']); 
+
+});
+
+Route::group(['middleware'=>['iscustomer','auth']], function(){
+
+    Route::get('/Customerpage', [HomeController::class, 'cus']); 
+
+});
+
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-// Route::get('/customer',[CustomerController::class,'index']);
-
-// Route::post('/add', function () {
-//    $add =new Add();
-//    $add->firstname=request('fname');
-//    $add->lastname=request('lname');
-//    $add->email=request('email');
-//    $add->phone=request('phno');
-//    $add->save();
-//    return redirect('/add');
-
-// });
-
-// Route::get('/addcustomer',[CustomerController::class,'create'])->name('add');
-
-// Route::post('/addcustomer', [CustomerController::class,'store']);
-// Route::get('/editcustomer/{id}',[CustomerController::class,'edit']);
-// Route::post('/editcustomer',[CustomerController::class,'update'])->name('update');
-
-// Route::get('/deletecustomer/{id}',[CustomerController::class,'destroy']);
-
-// Route::apiResource('member',MemberController::class);
 Route::resource('/customer',CustomerController::class);
 Route::resource('/employee',EmployeeController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
